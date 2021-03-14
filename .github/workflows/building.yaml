@@ -27,7 +27,13 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2      
-  
+
+      - name: Echo variables
+        run: bash ci/environment-variables.bash
+        env: 
+          OS_NAME: ${{ matrix.os }}
+          CPU_ARCH: ${{ matrix.arch }}
+
   build-binaries:
     if: (github.event_name == 'pull_request') || startsWith(github.ref, 'refs/tags/') || (github.ref == 'refs/heads/main')
     needs: raw-testing
@@ -66,6 +72,12 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
+
+      - name: Echo variables
+        run: bash ci/environment-variables.bash
+        env: 
+          OS_NAME: ${{ matrix.os }}
+          CPU_ARCH: ${{ matrix.arch }}
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
