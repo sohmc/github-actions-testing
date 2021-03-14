@@ -1,4 +1,4 @@
-name: AWS DDNS SG CICD
+name: Some CI/CD Pipeline
 
 on: 
   pull_request:
