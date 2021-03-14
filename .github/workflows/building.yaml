@@ -3,13 +3,13 @@ name: Some CI/CD Pipeline
 on: 
   pull_request:
     types: [opened, synchronize, reopened]
-  tags:
-    - v*
   push:
     branches:
       - main
     paths-ignore:
       - 'README.md'
+    tags:
+      - v*
   schedule:
     # 4am every Saturday
     - cron: '0 4 * * 6'
