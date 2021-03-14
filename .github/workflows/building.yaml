@@ -76,7 +76,6 @@ jobs:
 
   create-release-draft:
     if: startsWith(github.ref, 'refs/tags/')
-    needs: create-tag
     runs-on: ubuntu-latest
 
     steps:
