@@ -1,7 +1,6 @@
 name: Some CI/CD Pipeline
 
 on: 
-  create
   pull_request:
     types: [opened, synchronize, reopened]
   push:
