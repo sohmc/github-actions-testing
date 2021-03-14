@@ -1,6 +1,7 @@
 name: Some CI/CD Pipeline
 
 on: 
+  create
   pull_request:
     types: [opened, synchronize, reopened]
   push:
@@ -76,7 +77,6 @@ jobs:
 
   create-release-draft:
     if: startsWith(github.ref, 'refs/tags/')
-    needs: create-tag
     runs-on: ubuntu-latest
 
     steps:
