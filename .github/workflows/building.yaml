@@ -3,6 +3,8 @@ name: Some CI/CD Pipeline
 on: 
   pull_request:
     types: [opened, synchronize, reopened]
+  tags:
+    - v*
   push:
     branches:
       - main
@@ -55,7 +57,16 @@ jobs:
         env: 
           OS_NAME: ${{ matrix.os }}
           CPU_ARCH: ${{ matrix.arch }}
-          
+
+  create-tag:
+    if: github.ref == 'refs/heads/main'
+    needs: build-binaries
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+
       - name: Create Tag
         if: github.ref == 'refs/heads/main' && matrix.os == 'ubuntu-latest'
         uses: anothrNick/github-tag-action@1.26.0
@@ -66,18 +77,12 @@ jobs:
 
   create-release-draft:
     if: startsWith(github.ref, 'refs/tags/')
-    needs: build-binaries
+    needs: create-tag
     runs-on: ubuntu-latest
 
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
-
-      - name: Echo variables
-        run: bash ci/environment-variables.bash
-        env: 
-          OS_NAME: ${{ matrix.os }}
-          CPU_ARCH: ${{ matrix.arch }}
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
