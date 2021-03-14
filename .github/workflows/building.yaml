@@ -39,17 +39,17 @@ jobs:
         python-version: [3.9]
 
     steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+
       - name: Echo variables
         run: bash ci/environment-variables.bash
         env: 
           OS_NAME: ${{ matrix.os }}
           CPU_ARCH: ${{ matrix.arch }}
           
-      - name: Check out the repo
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: '0'
-      
       - name: Create Tag
         if: github.ref == 'refs/heads/main' && matrix.os == 'ubuntu.latest'
         uses: anothrNick/github-tag-action@1.26.0
