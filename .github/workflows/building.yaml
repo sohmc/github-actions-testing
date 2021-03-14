@@ -68,12 +68,11 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Create Tag
-        if: github.ref == 'refs/heads/main' && matrix.os == 'ubuntu-latest'
         uses: anothrNick/github-tag-action@1.26.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
-          RELEASE_BRANCHES: main,master
+          RELEASE_BRANCHES: main
 
   create-release-draft:
     if: startsWith(github.ref, 'refs/tags/')
