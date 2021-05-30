@@ -56,7 +56,7 @@ jobs:
           push: true
           context: ./ci/
           platforms: linux/amd64
-          file: ./Dockerfile
+          file: ./ci/Dockerfile
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
       
