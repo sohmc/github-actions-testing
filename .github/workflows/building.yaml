@@ -20,7 +20,8 @@ defaults:
 
 jobs:
   raw-testing:
-    if: !startsWith(github.ref, 'refs/tags/v')
+    if: startsWith(github.ref, 'refs/tags/v') != true
+    # Don't do any testing on tags since they would have already been done.
     runs-on: ubuntu-latest
     strategy:
       matrix:
