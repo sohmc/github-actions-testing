@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.9]
+        os: [ubuntu-latest]
         arch: [amd64]
 
     steps:
@@ -36,27 +36,27 @@ jobs:
           OS_NAME: ${{ matrix.os }}
           CPU_ARCH: ${{ matrix.arch }}
 
-  build-binaries:
-    if: (github.event_name == 'pull_request') || startsWith(github.ref, 'refs/tags/') || (github.ref == 'refs/heads/main')
-    needs: raw-testing
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-        arch: [amd64]
-        python-version: [3.9]
+  # build-binaries:
+  #   if: (github.event_name == 'pull_request') || startsWith(github.ref, 'refs/tags/') || (github.ref == 'refs/heads/main')
+  #   needs: raw-testing
+  #   runs-on: ${{ matrix.os }}
+  #   strategy:
+  #     matrix:
+  #       os: [ubuntu-latest, windows-latest, macos-latest]
+  #       arch: [amd64]
+  #       python-version: [3.9]
 
-    steps:
-      - name: Check out the repo
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: '0'
+  #   steps:
+  #     - name: Check out the repo
+  #       uses: actions/checkout@v2
+  #       with:
+  #         fetch-depth: '0'
 
-      - name: Echo variables
-        run: bash ci/environment-variables.bash
-        env: 
-          OS_NAME: ${{ matrix.os }}
-          CPU_ARCH: ${{ matrix.arch }}
+  #     - name: Echo variables
+  #       run: bash ci/environment-variables.bash
+  #       env: 
+  #         OS_NAME: ${{ matrix.os }}
+  #         CPU_ARCH: ${{ matrix.arch }}
 
   create-tag:
     if: github.ref == 'refs/heads/main'
