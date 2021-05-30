@@ -1,8 +1,7 @@
 name: Build Docker Image
 
 on: 
-  create:
-    ref-type: tag
+  create
 
 defaults:
   run:
