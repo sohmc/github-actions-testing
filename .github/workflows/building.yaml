@@ -60,7 +60,7 @@ jobs:
 
   create-tag:
     if: github.ref == 'refs/heads/main'
-    needs: build-binaries
+    # needs: build-binaries
     runs-on: ubuntu-latest
 
     steps:
